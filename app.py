@@ -34,5 +34,13 @@ selected_sport = st.selectbox("Sports", sports_list)
 result = filtered_df.loc[filtered_df["sports"].str.contains(selected_sport, regex=False)]
 
 site_name = result["nom_site"].values[0]
+start_date = result["start_date"].values[0]
+end_date = result["end_date"].values[0]
 
-st.write(site_name)
+with st.container(border=True):
+    text = f"""
+    ### {site_name}  
+    Date de début des épreuves : {start_date}  
+    Date de fin des épreuves : {end_date}   
+    """
+    st.markdown(text)
