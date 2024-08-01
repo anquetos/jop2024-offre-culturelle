@@ -1,0 +1,569 @@
+{
+    "0":{
+        "nom_site":"Pont Alexandre III",
+        "games_type":"olympic",
+        "sports":"Cyclisme sur route - arriv\u00e9e Contre-la-montre, Natation marathon, Triathlon",
+        "start_date":1722038400000,
+        "end_date":1723161600000,
+        "lon":2.3134,
+        "lat":48.8637
+    },
+    "1":{
+        "nom_site":"Arena Bercy",
+        "games_type":"olympic",
+        "sports":"Basketball, Gymnastique artistique, Gymnastique trampoline",
+        "start_date":1722038400000,
+        "end_date":1723334400000,
+        "lon":2.378597,
+        "lat":48.83863
+    },
+    "2":{
+        "nom_site":"Arena Champ de Mars",
+        "games_type":"olympic",
+        "sports":"Judo, Lutte",
+        "start_date":1722038400000,
+        "end_date":1723334400000,
+        "lon":2.30252,
+        "lat":48.8531
+    },
+    "3":{
+        "nom_site":"Arena Porte de la Chapelle",
+        "games_type":"olympic",
+        "sports":"Badminton, Gymnastique rythmique",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.3605141,
+        "lat":48.8997292
+    },
+    "4":{
+        "nom_site":"Arena Porte de la Chapelle",
+        "games_type":"paralympic",
+        "sports":"Para badminton, Para Halt\u00e9rophilie",
+        "start_date":1724889600000,
+        "end_date":1725753600000,
+        "lon":2.3605141,
+        "lat":48.8997292
+    },
+    "5":{
+        "nom_site":"Clichy-sous-Bois",
+        "games_type":"paralympic",
+        "sports":"Para cyclisme sur route",
+        "start_date":1725408000000,
+        "end_date":1725667200000,
+        "lon":2.553544,
+        "lat":48.906345
+    },
+    "6":{
+        "nom_site":"Centre national de tir de Ch\u00e2teauroux",
+        "games_type":"paralympic",
+        "sports":"Para Tir Sportif",
+        "start_date":1724976000000,
+        "end_date":1725494400000,
+        "lon":1.7582,
+        "lat":46.8157
+    },
+    "7":{
+        "nom_site":"Paris La D\u00e9fense Arena",
+        "games_type":"paralympic",
+        "sports":"Para Natation",
+        "start_date":1724889600000,
+        "end_date":1725667200000,
+        "lon":2.2294,
+        "lat":48.8954
+    },
+    "8":{
+        "nom_site":"Stade Tour Eiffel",
+        "games_type":"paralympic",
+        "sports":"C\u00e9cifoot",
+        "start_date":1725148800000,
+        "end_date":1725667200000,
+        "lon":2.2978,
+        "lat":48.85613
+    },
+    "9":{
+        "nom_site":"Grand Palais",
+        "games_type":"olympic",
+        "sports":"Escrime, Taekwondo",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.3125474,
+        "lat":48.86616355
+    },
+    "10":{
+        "nom_site":"H\u00f4tel de Ville",
+        "games_type":"olympic",
+        "sports":"Athl\u00e9tisme - d\u00e9part Marathon",
+        "start_date":1723248000000,
+        "end_date":1723334400000,
+        "lon":2.35222203,
+        "lat":48.8563881
+    },
+    "11":{
+        "nom_site":"Marina de Marseille",
+        "games_type":"olympic",
+        "sports":"Voile",
+        "start_date":1722124800000,
+        "end_date":1723075200000,
+        "lon":5.3678,
+        "lat":43.2661
+    },
+    "12":{
+        "nom_site":"Stade de la Beaujoire",
+        "games_type":"olympic",
+        "sports":"Football",
+        "start_date":1721779200000,
+        "end_date":1723075200000,
+        "lon":-1.52469927,
+        "lat":47.25593494
+    },
+    "13":{
+        "nom_site":"Arena Paris Nord",
+        "games_type":"olympic",
+        "sports":"Boxe, Pentathlon moderne",
+        "start_date":1722038400000,
+        "end_date":1723075200000,
+        "lon":2.5149,
+        "lat":48.9721
+    },
+    "14":{
+        "nom_site":"Arena Paris Nord",
+        "games_type":"paralympic",
+        "sports":"Volleyball assis",
+        "start_date":1724889600000,
+        "end_date":1725667200000,
+        "lon":2.5149,
+        "lat":48.9721
+    },
+    "15":{
+        "nom_site":"Parc des Princes",
+        "games_type":"olympic",
+        "sports":"Football",
+        "start_date":1721779200000,
+        "end_date":1723248000000,
+        "lon":2.253048697,
+        "lat":48.84156974
+    },
+    "16":{
+        "nom_site":"Stade Roland Garros",
+        "games_type":"paralympic",
+        "sports":"Tennis fauteuil",
+        "start_date":1724976000000,
+        "end_date":1725667200000,
+        "lon":2.253522,
+        "lat":48.845968
+    },
+    "17":{
+        "nom_site":"Stade Roland Garros",
+        "games_type":"olympic",
+        "sports":"Tennis, Boxe",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.253522,
+        "lat":48.845968
+    },
+    "18":{
+        "nom_site":"Arena Paris Sud 1",
+        "games_type":"olympic",
+        "sports":"Volley-ball",
+        "start_date":1722038400000,
+        "end_date":1723334400000,
+        "lon":2.2840069,
+        "lat":48.832968
+    },
+    "19":{
+        "nom_site":"Arena Paris Sud 1",
+        "games_type":"paralympic",
+        "sports":"Boccia",
+        "start_date":1724889600000,
+        "end_date":1725494400000,
+        "lon":2.2840069,
+        "lat":48.832968
+    },
+    "20":{
+        "nom_site":"Tahiti Teahupo'o",
+        "games_type":"olympic",
+        "sports":"Surf",
+        "start_date":1722038400000,
+        "end_date":1722297600000,
+        "lon":-149.25208,
+        "lat":-17.86693
+    },
+    "21":{
+        "nom_site":"V\u00e9lodrome National de Saint-Quentin-en-Yvelines",
+        "games_type":"paralympic",
+        "sports":"Para Cyclisme sur piste",
+        "start_date":1724889600000,
+        "end_date":1725148800000,
+        "lon":2.03498269,
+        "lat":48.78800979
+    },
+    "22":{
+        "nom_site":"Ch\u00e2teau de Versailles",
+        "games_type":"olympic",
+        "sports":"Sports \u00e9questres - dressage, Sports \u00e9questres - concours complet, Sports \u00e9questres - saut d'obstacles, Pentathlon moderne",
+        "start_date":1722038400000,
+        "end_date":1723334400000,
+        "lon":2.08452588,
+        "lat":48.81432266
+    },
+    "23":{
+        "nom_site":"Ch\u00e2teau de Versailles",
+        "games_type":"paralympic",
+        "sports":"Para Equitation",
+        "start_date":1725321600000,
+        "end_date":1725667200000,
+        "lon":2.08452588,
+        "lat":48.81432266
+    },
+    "24":{
+        "nom_site":"Stade nautique de Vaires-sur-Marne - bassin d'eaux calmes",
+        "games_type":"paralympic",
+        "sports":"Para Aviron, Para Cano\u00eb",
+        "start_date":1724976000000,
+        "end_date":1725753600000,
+        "lon":2.6348,
+        "lat":48.8623
+    },
+    "25":{
+        "nom_site":"Stade nautique de Vaires-sur-Marne - stade d'eaux vives",
+        "games_type":"olympic",
+        "sports":"Cano\u00eb-kayak slalom",
+        "start_date":1722038400000,
+        "end_date":1722816000000,
+        "lon":2.6395463614,
+        "lat":48.8622320958
+    },
+    "26":{
+        "nom_site":"Centre Aquatique",
+        "games_type":"olympic",
+        "sports":"Natation artistique, Plongeon, Water-polo",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.35578,
+        "lat":48.923723
+    },
+    "27":{
+        "nom_site":"Arena Champ de Mars",
+        "games_type":"paralympic",
+        "sports":"Para Judo, Rugby fauteuil",
+        "start_date":1724889600000,
+        "end_date":1725667200000,
+        "lon":2.30252,
+        "lat":48.8531
+    },
+    "28":{
+        "nom_site":"Centre national de tir de Ch\u00e2teauroux",
+        "games_type":"olympic",
+        "sports":"Tir",
+        "start_date":1722038400000,
+        "end_date":1722816000000,
+        "lon":1.7582,
+        "lat":46.8157
+    },
+    "29":{
+        "nom_site":"Paris La D\u00e9fense Arena",
+        "games_type":"olympic",
+        "sports":"Natation, Water-polo",
+        "start_date":1722038400000,
+        "end_date":1723334400000,
+        "lon":2.2294,
+        "lat":48.8954
+    },
+    "30":{
+        "nom_site":"Colline d\u2019Elancourt",
+        "games_type":"olympic",
+        "sports":"Cyclisme VTT",
+        "start_date":1722124800000,
+        "end_date":1722211200000,
+        "lon":1.9642379,
+        "lat":48.78981063
+    },
+    "31":{
+        "nom_site":"Invalides",
+        "games_type":"paralympic",
+        "sports":"Para Tir \u00e0 l'arc, Para Athl\u00e9tisme - arriv\u00e9e Marathon",
+        "start_date":1724889600000,
+        "end_date":1725753600000,
+        "lon":2.312835932,
+        "lat":48.85704803
+    },
+    "32":{
+        "nom_site":"La Concorde 1",
+        "games_type":"olympic",
+        "sports":"Basketball 3x3, Breaking",
+        "start_date":1722297600000,
+        "end_date":1723248000000,
+        "lon":2.32119515,
+        "lat":48.86640642
+    },
+    "33":{
+        "nom_site":"La Concorde 2",
+        "games_type":"olympic",
+        "sports":"BMX freestyle",
+        "start_date":1722297600000,
+        "end_date":1722384000000,
+        "lon":2.32119516,
+        "lat":48.86504456
+    },
+    "34":{
+        "nom_site":"La Concorde 3",
+        "games_type":"olympic",
+        "sports":"Skateboard",
+        "start_date":1722038400000,
+        "end_date":1722124800000,
+        "lon":2.32139191,
+        "lat":48.86486788
+    },
+    "35":{
+        "nom_site":"La Courneuve",
+        "games_type":"paralympic",
+        "sports":"Para Athl\u00e9tisme - d\u00e9part Marathon",
+        "start_date":1725753600000,
+        "end_date":1725753600000,
+        "lon":2.3994101,
+        "lat":48.9372382
+    },
+    "36":{
+        "nom_site":"Stade de Lyon",
+        "games_type":"olympic",
+        "sports":"Football",
+        "start_date":1721779200000,
+        "end_date":1723161600000,
+        "lon":4.98199275,
+        "lat":45.76514165
+    },
+    "37":{
+        "nom_site":"Stade de Marseille",
+        "games_type":"olympic",
+        "sports":"Football",
+        "start_date":1721779200000,
+        "end_date":1722902400000,
+        "lon":5.3959,
+        "lat":43.2698
+    },
+    "38":{
+        "nom_site":"Arena Paris Sud 6",
+        "games_type":"paralympic",
+        "sports":"Goalball",
+        "start_date":1724889600000,
+        "end_date":1725494400000,
+        "lon":2.290865,
+        "lat":48.829381
+    },
+    "39":{
+        "nom_site":"Stade de France",
+        "games_type":"olympic",
+        "sports":"Athl\u00e9tisme, Rugby \u00e0 7, C\u00e9r\u00e9monie de cl\u00f4ture",
+        "start_date":1721779200000,
+        "end_date":1723334400000,
+        "lon":2.360127,
+        "lat":48.924475
+    },
+    "40":{
+        "nom_site":"Trocad\u00e9ro",
+        "games_type":"olympic",
+        "sports":"Athl\u00e9tisme marche, Cyclisme sur route - Course sur route",
+        "start_date":1722470400000,
+        "end_date":1722988800000,
+        "lon":2.29221884,
+        "lat":48.85972558
+    },
+    "41":{
+        "nom_site":"V\u00e9lodrome National de Saint-Quentin-en-Yvelines",
+        "games_type":"olympic",
+        "sports":"Cyclisme sur piste",
+        "start_date":1722816000000,
+        "end_date":1723334400000,
+        "lon":2.03498269,
+        "lat":48.78800979
+    },
+    "42":{
+        "nom_site":"Stade BMX de Saint-Quentin-en-Yvelines",
+        "games_type":"olympic",
+        "sports":"BMX Racing",
+        "start_date":1725148800000,
+        "end_date":1725235200000,
+        "lon":2.03498269,
+        "lat":48.78800979
+    },
+    "43":{
+        "nom_site":"Pont Alexandre III",
+        "games_type":"paralympic",
+        "sports":"Para Triathlon",
+        "start_date":1725148800000,
+        "end_date":1725235200000,
+        "lon":2.3134,
+        "lat":48.8637
+    },
+    "44":{
+        "nom_site":"Arena Bercy",
+        "games_type":"paralympic",
+        "sports":"Basketball fauteuil",
+        "start_date":1724889600000,
+        "end_date":1725753600000,
+        "lon":2.378597,
+        "lat":48.83863
+    },
+    "45":{
+        "nom_site":"Stade de Bordeaux",
+        "games_type":"olympic",
+        "sports":"Football",
+        "start_date":1721779200000,
+        "end_date":1722556800000,
+        "lon":-0.5616,
+        "lat":44.8974
+    },
+    "46":{
+        "nom_site":"Stade Tour Eiffel",
+        "games_type":"olympic",
+        "sports":"Volley-ball de plage",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.2978,
+        "lat":48.85613
+    },
+    "47":{
+        "nom_site":"Grand Palais",
+        "games_type":"paralympic",
+        "sports":"Escrime fauteuil, Para Taekwondo",
+        "start_date":1724889600000,
+        "end_date":1725667200000,
+        "lon":2.3125474,
+        "lat":48.86616355
+    },
+    "48":{
+        "nom_site":"Invalides",
+        "games_type":"olympic",
+        "sports":"Athl\u00e9tisme - arriv\u00e9e Marathon, Cyclisme sur route - d\u00e9part Contre-la-montre, Tir \u00e0 l'arc",
+        "start_date":1721865600000,
+        "end_date":1723334400000,
+        "lon":2.312835932,
+        "lat":48.85704803
+    },
+    "49":{
+        "nom_site":"Site d\u2019escalade du Bourget",
+        "games_type":"olympic",
+        "sports":"Escalade",
+        "start_date":1722816000000,
+        "end_date":1723248000000,
+        "lon":2.41997931,
+        "lat":48.93693402
+    },
+    "50":{
+        "nom_site":"La Concorde 4",
+        "games_type":"olympic",
+        "sports":"Skateboard",
+        "start_date":1722902400000,
+        "end_date":1722988800000,
+        "lon":2.3220383,
+        "lat":48.86573765
+    },
+    "51":{
+        "nom_site":"La Concorde",
+        "games_type":"olympic",
+        "sports":"Parc Urbain la Concorde",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.3212142263,
+        "lat":48.8657035746
+    },
+    "52":{
+        "nom_site":"La Concorde",
+        "games_type":"paralympic",
+        "sports":"C\u00e9r\u00e9monie d'ouverture Paralympique",
+        "start_date":1725753600000,
+        "end_date":1725753600000,
+        "lon":2.3212142263,
+        "lat":48.8657035746
+    },
+    "53":{
+        "nom_site":"Golf National",
+        "games_type":"olympic",
+        "sports":"Golf",
+        "start_date":1725148800000,
+        "end_date":1725926400000,
+        "lon":2.0758,
+        "lat":48.7532
+    },
+    "54":{
+        "nom_site":"Stade Pierre Mauroy",
+        "games_type":"olympic",
+        "sports":"Basketball, Handball",
+        "start_date":1722038400000,
+        "end_date":1723334400000,
+        "lon":3.13047318,
+        "lat":50.61190661
+    },
+    "55":{
+        "nom_site":"Stade de Nice",
+        "games_type":"olympic",
+        "sports":"Football",
+        "start_date":1721779200000,
+        "end_date":1722384000000,
+        "lon":7.1926,
+        "lat":43.7051
+    },
+    "56":{
+        "nom_site":"Arena Paris Sud 4",
+        "games_type":"olympic",
+        "sports":"Tennis de table",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.289033,
+        "lat":48.830184
+    },
+    "57":{
+        "nom_site":"Arena Paris Sud 4",
+        "games_type":"paralympic",
+        "sports":"Tennis de table para",
+        "start_date":1724889600000,
+        "end_date":1725667200000,
+        "lon":2.289033,
+        "lat":48.830184
+    },
+    "58":{
+        "nom_site":"Arena Paris Sud 6",
+        "games_type":"olympic",
+        "sports":"Handball, Halt\u00e9rophilie",
+        "start_date":1721865600000,
+        "end_date":1723334400000,
+        "lon":2.290865,
+        "lat":48.829381
+    },
+    "59":{
+        "nom_site":"Stade de France",
+        "games_type":"paralympic",
+        "sports":"Para Athl\u00e9tisme, C\u00e9r\u00e9monie de cl\u00f4ture Paralympique",
+        "start_date":1724976000000,
+        "end_date":1725753600000,
+        "lon":2.360127,
+        "lat":48.924475
+    },
+    "60":{
+        "nom_site":"Stade Geoffroy-Guichard",
+        "games_type":"olympic",
+        "sports":"Football",
+        "start_date":1721779200000,
+        "end_date":1722384000000,
+        "lon":4.3902,
+        "lat":45.4607
+    },
+    "61":{
+        "nom_site":"Stade nautique de Vaires-sur-Marne - bassin d'eaux calmes",
+        "games_type":"olympic",
+        "sports":"Aviron, Cano\u00eb - course en ligne",
+        "start_date":1722038400000,
+        "end_date":1723248000000,
+        "lon":2.6348,
+        "lat":48.8623
+    },
+    "62":{
+        "nom_site":"Stade Yves-du-Manoir",
+        "games_type":"olympic",
+        "sports":"Hockey",
+        "start_date":1722038400000,
+        "end_date":1723161600000,
+        "lon":2.24777122,
+        "lat":48.92934371
+    }
+}
