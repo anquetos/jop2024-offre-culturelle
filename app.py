@@ -18,7 +18,7 @@ st.write("Date et heure actuelle : ", datetime.now())
 st.title("JOP2024 et offre culturelle")
 
 games_type = st.radio("Type de jeux", ["Olympiques", "Paralympiques"], horizontal=True)
-search_type = st.radio("Type de recherche", ["Sport", "site"], horizontal=True)
+search_type = st.radio("Type de recherche", ["Par sport", "Par site"], horizontal=True)
 
 if games_type == "Olympiques":
     filtered_df = df.loc[df["games_type"] == "olympic"]
