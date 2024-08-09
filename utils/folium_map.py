@@ -16,7 +16,9 @@ def create_folium_map(
     return folium_map
 
 
-def create_selected_site_marker(site: dict) -> folium.Marker:
+def create_available_sites_marker(
+    site: dict, selected_site_location: list
+) -> folium.Marker:
     if not site:
         return folium.Marker(location=[0, 0])
 
@@ -25,7 +27,9 @@ def create_selected_site_marker(site: dict) -> folium.Marker:
         # tooltip=f'Commune : {site["label"]}',
         tooltip="a",
         popup="a",
-        icon=folium.Icon(icon="glyphicon-flag", color="darkred", prefix="glyphicon"),
+        icon=folium.Icon(icon="glyphicon-flag", color="green", prefix="glyphicon")
+        if set([site["lat"], site["lon"]]) == set(selected_site_location)
+        else folium.Icon(icon="glyphicon-flag", color="blue", prefix="glyphicon"),
     )
     return site_marker
 

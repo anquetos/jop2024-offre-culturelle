@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_folium import st_folium
 
-from utils.folium_map import create_folium_map, create_selected_site_marker
+from utils.folium_map import create_folium_map, create_available_sites_marker
 
 # Load competition sites data
 with open("datasets/jop2024-competition-sites.json", "r", encoding="utf-8") as f:
@@ -51,36 +51,38 @@ sports_list = sorted(set(sports_list.stack().values))
 # Initialize selected sport
 selected_sport = st.selectbox("Sélectionner un sport", options=sports_list)
 
-# Get all sites information for the selected sport
-results = filtered_df.loc[
+# Get all available sites information for the selected sport
+available_sites = filtered_df.loc[
     filtered_df["sports"].str.contains(selected_sport, regex=False)
 ].to_dict(orient="records")
 
 with st.expander("Results"):
-    st.write(results)
+    st.write(available_sites)
 
-selected_site_radio_label = f"*{len(results)} site(s) de compétition trouvé(s)* :"
+site_selection_radio_label = (
+    f"*{len(available_sites)} site(s) de compétition trouvé(s)* :"
+)
 
 
-def format_sites_information() -> list:
-    if not results:
+def format_available_sites_information() -> list:
+    if not available_sites:
         return []
 
     captions = []
-    for result in results:
+    for site in available_sites:
         captions.append(
-            f"**Sport(s) :** {result['sports']}\n\n"
-            f"**Dates :** du {result['start_date'].strftime('%d/%m/%Y')} "
-            f"au {result['end_date'].strftime('%d/%m/%Y')}"
+            f"**Sport(s) :** {site['sports']}\n\n"
+            f"**Dates :** du {site['start_date'].strftime('%d/%m/%Y')} "
+            f"au {site['end_date'].strftime('%d/%m/%Y')}"
         )
     return captions
 
 
 selected_site = st.radio(
-    label=selected_site_radio_label,
-    options=results,
+    label=site_selection_radio_label,
+    options=available_sites,
     format_func=lambda x: x["nom_site"],
-    captions=format_sites_information(),
+    captions=format_available_sites_information(),
 )
 
 st.write(selected_site)
@@ -88,13 +90,15 @@ st.write(selected_site)
 # Initialize Folium map
 m = create_folium_map()
 
-# Add a marker on the Folium map for the selected site(s)
-for result in results:
-    selected_site_marker = create_selected_site_marker(site=result)
-    selected_site_marker.add_to(m)
+# Add a marker on the Folium map for all available site(s)
+for site in available_sites:
+    site_marker = create_available_sites_marker(
+        site=site, selected_site_location=[selected_site["lat"], selected_site["lon"]]
+    )
+    site_marker.add_to(m)
 
 # Fit Folium map bounds to nearest stations coordinates
-m.fit_bounds([[result["lat"], result["lon"]] for result in results])
+m.fit_bounds([[site["lat"], site["lon"]] for site in available_sites])
 
 # Render Folium map
 st_data = st_folium(m, width=725)
