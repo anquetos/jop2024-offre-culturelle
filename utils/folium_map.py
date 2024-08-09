@@ -23,6 +23,8 @@ def create_selected_site_marker(site: dict) -> folium.Marker:
     site_marker = folium.Marker(
         location=[site["lat"], site["lon"]],
         # tooltip=f'Commune : {site["label"]}',
+        tooltip="a",
+        popup="a",
         icon=folium.Icon(icon="glyphicon-flag", color="darkred", prefix="glyphicon"),
     )
     return site_marker

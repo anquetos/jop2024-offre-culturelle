@@ -13,12 +13,26 @@ with open("datasets/jop2024-competition-sites.json", "r", encoding="utf-8") as f
 
 df = pd.DataFrame.from_dict(data, orient="index")
 
-st.write("Date et heure actuelle : ", datetime.now())
+# Convert "start_date" and "end_date" to DateTime format
+df[["start_date", "end_date"]] = df[["start_date", "end_date"]].apply(pd.to_datetime)
 
 st.title("JOP2024 et offre culturelle")
 
-games_type = st.radio("Type de jeux", ["Olympiques", "Paralympiques"], horizontal=True)
-search_type = st.radio("Type de recherche", ["Par sport", "Par site"], horizontal=True)
+st.write("Date et heure actuelle : ", datetime.now().strftime("%d/%m/%Y - %H:%m"))
+
+with st.sidebar:
+    st.subheader("Options")
+    hide_sites = st.toggle(
+        label="Masque les sites selon la date",
+        help="Masque les sites où toutes les épreuves prévues se sont déjà déroulées.",
+        value=True,
+    )
+    games_type = st.radio(
+        "Type de jeux", ["Olympiques", "Paralympiques"], horizontal=True
+    )
+
+if hide_sites:
+    df = df.loc[df["end_date"].dt.date >= datetime.now().date()]
 
 if games_type == "Olympiques":
     filtered_df = df.loc[df["games_type"] == "olympic"]
@@ -42,6 +56,22 @@ results = filtered_df.loc[
     filtered_df["sports"].str.contains(selected_sport, regex=False)
 ].to_dict(orient="records")
 
+cap = []
+for result in results:
+    cap_text = (
+        f"Sport(s) : {result['sports']}\n\n"
+        f"Date de début : {result['start_date'].strftime('%d/%m/%Y')} - Date de fin : {result['end_date'].strftime('%d/%m/%Y')}"
+    )
+    cap.append(cap_text)
+
+with st.expander("Results"):
+    st.write(results)
+
+res_lab = f"*{len(results)} site(s) de compétition trouvé(s)* :"
+
+st.radio(res_lab, options=[result["nom_site"] for result in results], captions=cap)
+
+
 # with st.container(border=True):
 #     text = f"""
 #     ### {site_name}
@@ -63,3 +93,6 @@ m.fit_bounds([[result["lat"], result["lon"]] for result in results])
 
 # Render Folium map
 st_data = st_folium(m, width=725)
+
+with st.expander("Session State"):
+    st.write(st.session_state)
