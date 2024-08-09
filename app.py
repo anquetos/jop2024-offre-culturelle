@@ -56,29 +56,34 @@ results = filtered_df.loc[
     filtered_df["sports"].str.contains(selected_sport, regex=False)
 ].to_dict(orient="records")
 
-cap = []
-for result in results:
-    cap_text = (
-        f"Sport(s) : {result['sports']}\n\n"
-        f"Date de début : {result['start_date'].strftime('%d/%m/%Y')} - Date de fin : {result['end_date'].strftime('%d/%m/%Y')}"
-    )
-    cap.append(cap_text)
-
 with st.expander("Results"):
     st.write(results)
 
-res_lab = f"*{len(results)} site(s) de compétition trouvé(s)* :"
-
-st.radio(res_lab, options=[result["nom_site"] for result in results], captions=cap)
+selected_site_radio_label = f"*{len(results)} site(s) de compétition trouvé(s)* :"
 
 
-# with st.container(border=True):
-#     text = f"""
-#     ### {site_name}
-#     Date de début des épreuves : {start_date}
-#     Date de fin des épreuves : {end_date}
-#     """
-#     st.markdown(text)
+def format_sites_information() -> list:
+    if not results:
+        return []
+
+    captions = []
+    for result in results:
+        captions.append(
+            f"**Sport(s) :** {result['sports']}\n\n"
+            f"**Dates :** du {result['start_date'].strftime('%d/%m/%Y')} "
+            f"au {result['end_date'].strftime('%d/%m/%Y')}"
+        )
+    return captions
+
+
+selected_site = st.radio(
+    label=selected_site_radio_label,
+    options=results,
+    format_func=lambda x: x["nom_site"],
+    captions=format_sites_information(),
+)
+
+st.write(selected_site)
 
 # Initialize Folium map
 m = create_folium_map()
