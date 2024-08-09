@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_folium import st_folium
 
-from utils.folium_map import create_folium_map
+from utils.folium_map import create_folium_map, create_selected_site_marker
 
 # Load competition sites data
 with open("datasets/jop2024-competition-sites.json", "r", encoding="utf-8") as f:
@@ -34,26 +34,32 @@ for col in sports_list.columns:
     sports_list[col] = sports_list[col].str.strip()
 sports_list = sorted(set(sports_list.stack().values))
 
+# Initialize selected sport
 selected_sport = st.selectbox("Sélectionner un sport", options=sports_list)
 
-result = filtered_df.loc[
+# Get all sites information for the selected sport
+results = filtered_df.loc[
     filtered_df["sports"].str.contains(selected_sport, regex=False)
-]
+].to_dict(orient="records")
 
-site_name = result["nom_site"].values[0]
-start_date = result["start_date"].values[0]
-end_date = result["end_date"].values[0]
-
-with st.container(border=True):
-    text = f"""
-    ### {site_name}  
-    Date de début des épreuves : {start_date}  
-    Date de fin des épreuves : {end_date}   
-    """
-    st.markdown(text)
+# with st.container(border=True):
+#     text = f"""
+#     ### {site_name}
+#     Date de début des épreuves : {start_date}
+#     Date de fin des épreuves : {end_date}
+#     """
+#     st.markdown(text)
 
 # Initialize Folium map
 m = create_folium_map()
+
+# Add a marker on the Folium map for the selected site(s)
+for result in results:
+    selected_site_marker = create_selected_site_marker(site=result)
+    selected_site_marker.add_to(m)
+
+# Fit Folium map bounds to nearest stations coordinates
+m.fit_bounds([[result["lat"], result["lon"]] for result in results])
 
 # Render Folium map
 st_data = st_folium(m, width=725)

@@ -1,10 +1,13 @@
 import folium
 
 
-def create_folium_map(zoom_start: int = 5) -> folium.Map:
+def create_folium_map(
+    location: list = [46.227638, 2.213749], zoom_start: int = 5, max_zoom: int = 15
+) -> folium.Map:
     folium_map = folium.Map(
-        location=[46.227638, 2.213749],
+        location=location,
         zoom_start=zoom_start,
+        max_zoom=max_zoom,
         zoom_control=True,
         tiles="GeoportailFrance_plan",
         scrollWheelZoom=False,
@@ -13,16 +16,16 @@ def create_folium_map(zoom_start: int = 5) -> folium.Map:
     return folium_map
 
 
-def create_selected_city_marker(city: dict) -> folium.Marker:
-    if not city:
+def create_selected_site_marker(site: dict) -> folium.Marker:
+    if not site:
         return folium.Marker(location=[0, 0])
 
-    city_marker = folium.Marker(
-        location=[city["lat"], city["lon"]],
-        tooltip=f'Commune : {city["label"]}',
-        icon=folium.Icon(icon="glyphicon-home", color="darkred", prefix="glyphicon"),
+    site_marker = folium.Marker(
+        location=[site["lat"], site["lon"]],
+        # tooltip=f'Commune : {site["label"]}',
+        icon=folium.Icon(icon="glyphicon-flag", color="darkred", prefix="glyphicon"),
     )
-    return city_marker
+    return site_marker
 
 
 def create_stations_markers(index: int, station: dict) -> folium.Marker:
