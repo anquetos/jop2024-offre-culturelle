@@ -10,13 +10,17 @@ from utils.folium_map import create_folium_map, create_available_sites_marker
 st.set_page_config(layout="wide", initial_sidebar_state= "expanded")
 
 # Load competition sites data
-with open("datasets/jop2024-competition-sites.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
+@st.cache_data
+def load_competition_sites() -> pd.DataFrame:
+    with open("datasets/jop2024-competition-sites.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    df = pd.DataFrame.from_dict(data, orient="index")
+    return df
 
-df = pd.DataFrame.from_dict(data, orient="index")
+df_competition_sites = load_competition_sites()
 
 # Convert "start_date" and "end_date" to DateTime format
-df[["start_date", "end_date"]] = df[["start_date", "end_date"]].apply(pd.to_datetime)
+df_competition_sites[["start_date", "end_date"]] = df_competition_sites[["start_date", "end_date"]].apply(pd.to_datetime)
 
 st.title("JOP2024 et offre culturelle")
 
@@ -27,19 +31,19 @@ with st.sidebar:
     hide_sites = st.toggle(
         label="Masque les sites selon la date",
         help="Masque les sites où toutes les épreuves prévues se sont déjà déroulées.",
-        value=True,
+        value=False,
     )
     games_type = st.radio(
         "Type de jeux", ["Olympiques", "Paralympiques"], horizontal=True
     )
 
 if hide_sites:
-    df = df.loc[df["end_date"].dt.date >= datetime.now().date()]
+    df_competition_sites = df_competition_sites.loc[df_competition_sites["end_date"].dt.date >= datetime.now().date()]
 
 if games_type == "Olympiques":
-    filtered_df = df.loc[df["games_type"] == "olympic"]
+    filtered_df = df_competition_sites.loc[df_competition_sites["games_type"] == "olympic"]
 else:
-    filtered_df = df.loc[df["games_type"] == "paralympic"]
+    filtered_df = df_competition_sites.loc[df_competition_sites["games_type"] == "paralympic"]
 
 with st.expander("DataFrame"):
     st.dataframe(filtered_df)
