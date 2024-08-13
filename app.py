@@ -5,9 +5,10 @@ import pandas as pd
 import streamlit as st
 from streamlit_folium import st_folium
 
-from utils.folium_map import create_folium_map, create_available_sites_marker
+from utils.folium_map import create_folium_map, add_selected_site_marker
 
-st.set_page_config(layout="wide", initial_sidebar_state= "expanded")
+st.set_page_config(layout="wide", initial_sidebar_state="expanded")
+
 
 # Load competition sites data
 @st.cache_data
@@ -17,10 +18,13 @@ def load_competition_sites() -> pd.DataFrame:
     df = pd.DataFrame.from_dict(data, orient="index")
     return df
 
+
 df_competition_sites = load_competition_sites()
 
 # Convert "start_date" and "end_date" to DateTime format
-df_competition_sites[["start_date", "end_date"]] = df_competition_sites[["start_date", "end_date"]].apply(pd.to_datetime)
+df_competition_sites[["start_date", "end_date"]] = df_competition_sites[
+    ["start_date", "end_date"]
+].apply(pd.to_datetime)
 
 st.title("JOP2024 et offre culturelle")
 
@@ -38,12 +42,18 @@ with st.sidebar:
     )
 
 if hide_sites:
-    df_competition_sites = df_competition_sites.loc[df_competition_sites["end_date"].dt.date >= datetime.now().date()]
+    df_competition_sites = df_competition_sites.loc[
+        df_competition_sites["end_date"].dt.date >= datetime.now().date()
+    ]
 
 if games_type == "Olympiques":
-    filtered_df = df_competition_sites.loc[df_competition_sites["games_type"] == "olympic"]
+    filtered_df = df_competition_sites.loc[
+        df_competition_sites["games_type"] == "olympic"
+    ]
 else:
-    filtered_df = df_competition_sites.loc[df_competition_sites["games_type"] == "paralympic"]
+    filtered_df = df_competition_sites.loc[
+        df_competition_sites["games_type"] == "paralympic"
+    ]
 
 with st.expander("DataFrame"):
     st.dataframe(filtered_df)
@@ -94,17 +104,14 @@ selected_site = st.radio(
 st.write(selected_site)
 
 # Initialize Folium map
-m = create_folium_map()
+m = create_folium_map(location=[selected_site["lat"], selected_site["lon"]])
 
-# Add a marker on the Folium map for all available site(s)
-for site in available_sites:
-    site_marker = create_available_sites_marker(
-        site=site, selected_site_location=[selected_site["lat"], selected_site["lon"]]
-    )
-    site_marker.add_to(m)
+# Add a marker on the Folium map for the selected site
+marker = add_selected_site_marker(selected_site["lat"], selected_site["lon"])
+marker.add_to(m)
 
 # Fit Folium map bounds to nearest stations coordinates
-m.fit_bounds([[site["lat"], site["lon"]] for site in available_sites])
+# m.fit_bounds([[site["lat"], site["lon"]] for site in available_sites])
 
 # Render Folium map
 st_data = st_folium(m, use_container_width=True)

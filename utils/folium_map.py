@@ -2,7 +2,7 @@ import folium
 
 
 def create_folium_map(
-    location: list = [46.227638, 2.213749], zoom_start: int = 5, max_zoom: int = 15
+    location: list = [46.227638, 2.213749], zoom_start: int = 15, max_zoom: int = 15
 ) -> folium.Map:
     folium_map = folium.Map(
         location=location,
@@ -15,6 +15,14 @@ def create_folium_map(
     )
     return folium_map
 
+def add_selected_site_marker(lat: float, lon: float) -> folium.Marker:
+    marker = folium.Marker(
+        location=[lat, lon],
+        tooltip="a",
+        popup="a",
+    )
+    return marker
+    pass
 
 def create_available_sites_marker(
     site: dict, selected_site_location: list
