@@ -28,7 +28,7 @@ df_competition_sites[["start_date", "end_date"]] = df_competition_sites[
 
 st.title("JOP2024 et offre culturelle")
 
-st.write("Date et heure actuelle : ", datetime.now().strftime("%d/%m/%Y - %H:%m"))
+# st.write("Date et heure actuelle : ", datetime.now().strftime("%d/%m/%Y - %H:%m"))
 
 with st.sidebar:
     st.subheader("Options")
@@ -55,8 +55,8 @@ else:
         df_competition_sites["games_type"] == "paralympic"
     ]
 
-with st.expander("DataFrame"):
-    st.dataframe(filtered_df)
+# with st.expander("DataFrame"):
+#     st.dataframe(filtered_df)
 
 # Initialize sports list
 sports_list = filtered_df["sports"].str.split(",", expand=True)
@@ -72,8 +72,8 @@ available_sites = filtered_df.loc[
     filtered_df["sports"].str.contains(selected_sport, regex=False)
 ].to_dict(orient="records")
 
-with st.expander("Results"):
-    st.write(available_sites)
+# with st.expander("Results"):
+#     st.write(available_sites)
 
 site_selection_radio_label = (
     f"*{len(available_sites)} site(s) de compétition trouvé(s)* :"
@@ -101,13 +101,13 @@ selected_site = st.radio(
     captions=format_available_sites_information(),
 )
 
-st.write(selected_site)
+# st.write(selected_site)
 
 # Initialize Folium map
 m = create_folium_map(location=[selected_site["lat"], selected_site["lon"]])
 
 # Add a marker on the Folium map for the selected site
-marker = add_selected_site_marker(selected_site["lat"], selected_site["lon"])
+marker = add_selected_site_marker(site=selected_site)
 marker.add_to(m)
 
 # Fit Folium map bounds to nearest stations coordinates

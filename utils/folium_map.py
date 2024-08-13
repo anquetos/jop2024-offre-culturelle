@@ -15,14 +15,14 @@ def create_folium_map(
     )
     return folium_map
 
-def add_selected_site_marker(lat: float, lon: float) -> folium.Marker:
+def add_selected_site_marker(site: dict) -> folium.Marker:
     marker = folium.Marker(
-        location=[lat, lon],
-        tooltip="a",
-        popup="a",
+        location=[site["lat"], site["lon"]],
+        tooltip=f"{site['nom_site']}",
+        popup=f"{site['nom_site']}",
+        icon=folium.Icon(icon="glyphicon-flag", color="green", prefix="glyphicon"),
     )
     return marker
-    pass
 
 def create_available_sites_marker(
     site: dict, selected_site_location: list
