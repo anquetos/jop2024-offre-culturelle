@@ -7,6 +7,8 @@ from streamlit_folium import st_folium
 
 from utils.folium_map import create_folium_map, create_available_sites_marker
 
+st.set_page_config(layout="wide", initial_sidebar_state= "expanded")
+
 # Load competition sites data
 with open("datasets/jop2024-competition-sites.json", "r", encoding="utf-8") as f:
     data = json.load(f)
@@ -101,7 +103,7 @@ for site in available_sites:
 m.fit_bounds([[site["lat"], site["lon"]] for site in available_sites])
 
 # Render Folium map
-st_data = st_folium(m, width=725)
+st_data = st_folium(m, use_container_width=True)
 
 with st.expander("Session State"):
     st.write(st.session_state)
