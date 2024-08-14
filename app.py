@@ -7,7 +7,14 @@ from streamlit_folium import st_folium
 
 from utils.folium_map import create_folium_map, add_selected_site_marker
 
-st.set_page_config(layout="wide", initial_sidebar_state="expanded")
+
+# Defaut setting of the app page
+st.set_page_config(
+    page_title="JO Paris 2024 · Explorer",
+    page_icon="🏅",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
 
 # Load competition sites data
