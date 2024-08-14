@@ -24,6 +24,15 @@ def add_selected_site_marker(site: dict) -> folium.Marker:
     )
     return marker
 
+def add_event_marker(event: dict) -> folium.Marker:
+    marker = folium.Marker(
+        location=[event["latitude"], event["longitude"]],
+        # tooltip=f"{events['nom_events']}",
+        # popup=f"{events['nom_site']}",
+        icon=folium.Icon(icon="glyphicon-flag", color="red", prefix="glyphicon"),
+    )
+    return marker
+
 def create_available_sites_marker(
     site: dict, selected_site_location: list
 ) -> folium.Marker:
@@ -40,17 +49,3 @@ def create_available_sites_marker(
         else folium.Icon(icon="glyphicon-flag", color="blue", prefix="glyphicon"),
     )
     return site_marker
-
-
-def create_stations_markers(index: int, station: dict) -> folium.Marker:
-    if not station:
-        return folium.Marker(location=[0, 0])
-
-    stations_markers = folium.Marker(
-        location=[station["latitude"], station["longitude"]],
-        tooltip=f'Station : {station["nom_usuel"]}',
-        icon=folium.Icon(icon="glyphicon-star", color="green", prefix="glyphicon")
-        if index == 0
-        else folium.Icon(icon="glyphicon-map-marker", color="blue", prefix="glyphicon"),
-    )
-    return stations_markers
