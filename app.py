@@ -8,7 +8,7 @@ from streamlit_folium import st_folium
 from utils.folium_map import create_folium_map, add_selected_site_marker
 
 
-# Defaut setting of the app page
+# ---------- Page configuration
 st.set_page_config(
     page_title="JO Paris 2024 · Explorer",
     page_icon="🏅",
@@ -16,54 +16,71 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ---------- Data loading functions
 
-# Load competition sites data
+
+# Competition sites data
 @st.cache_data
 def load_competition_sites() -> pd.DataFrame:
     with open("datasets/jop2024-competition-sites.json", "r", encoding="utf-8") as f:
         data = json.load(f)
     df = pd.DataFrame.from_dict(data, orient="index")
+    df[["start_date", "end_date"]] = df[["start_date", "end_date"]].apply(
+        pd.to_datetime
+    )
     return df
 
 
-df_competition_sites = load_competition_sites()
+# Events data
+@st.cache_data
+def load_events() -> pd.DataFrame:
+    with open("datasets/jop2024-evenements.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    df = pd.DataFrame.from_dict(data, orient="index")
+    df[["date_debut", "date_fin"]] = df[["date_debut", "date_fin"]].apply(
+        pd.to_datetime
+    )
+    return df
 
-# Convert "start_date" and "end_date" to DateTime format
-df_competition_sites[["start_date", "end_date"]] = df_competition_sites[
-    ["start_date", "end_date"]
-].apply(pd.to_datetime)
+
+#################
+# Streamlit app #
+#################
+
+# Get and cache data
+df_sites = load_competition_sites()
+df_events = load_events()
 
 st.title("JOP2024 et offre culturelle")
+st.write(f"*Date et heure actuelle : {datetime.now().strftime('%d/%m/%Y - %H:%m')}*")
 
-# st.write("Date et heure actuelle : ", datetime.now().strftime("%d/%m/%Y - %H:%m"))
+# --- Application : sidebar
 
 with st.sidebar:
     st.subheader("Options")
+
     hide_sites = st.toggle(
         label="Masque les sites selon la date",
         help="Masque les sites où toutes les épreuves prévues se sont déjà déroulées.",
         value=False,
     )
+
     games_type = st.radio(
         "Type de jeux", ["Olympiques", "Paralympiques"], horizontal=True
     )
 
 if hide_sites:
-    df_competition_sites = df_competition_sites.loc[
-        df_competition_sites["end_date"].dt.date >= datetime.now().date()
-    ]
+    df_sites = df_sites.loc[df_sites["end_date"].dt.date >= datetime.now().date()]
 
 if games_type == "Olympiques":
-    filtered_df = df_competition_sites.loc[
-        df_competition_sites["games_type"] == "olympic"
-    ]
+    filtered_df = df_sites.loc[df_sites["games_type"] == "olympic"]
 else:
-    filtered_df = df_competition_sites.loc[
-        df_competition_sites["games_type"] == "paralympic"
-    ]
+    filtered_df = df_sites.loc[df_sites["games_type"] == "paralympic"]
 
 # with st.expander("DataFrame"):
 #     st.dataframe(filtered_df)
+
+# ---------- Application : main page
 
 # Initialize sports list
 sports_list = filtered_df["sports"].str.split(",", expand=True)
