@@ -2,15 +2,15 @@ import folium
 
 
 def create_folium_map(
-    location: list = [46.227638, 2.213749], zoom_start: int = 15, max_zoom: int = 15
+    location: list = [46.227638, 2.213749], zoom_start: int = 15, max_zoom: int = 20
 ) -> folium.Map:
     folium_map = folium.Map(
         location=location,
         zoom_start=zoom_start,
         max_zoom=max_zoom,
-        zoom_control=True,
+        zoom_control=False,
         tiles="GeoportailFrance_plan",
-        scrollWheelZoom=False,
+        scrollWheelZoom=True,
         dragging=True,
     )
     return folium_map

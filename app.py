@@ -4,6 +4,7 @@ from datetime import datetime
 import pandas as pd
 import streamlit as st
 from streamlit_folium import st_folium
+from folium.plugins import MarkerCluster
 from geopy import distance
 
 from utils.folium_map import (
@@ -11,7 +12,6 @@ from utils.folium_map import (
     add_selected_site_marker,
     add_event_marker,
 )
-
 
 # ---------- Page configuration
 st.set_page_config(
@@ -21,7 +21,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ---------- Data loading functions
+# ---------- Functions
 
 
 # Competition sites data
@@ -48,125 +48,166 @@ def load_events() -> pd.DataFrame:
     return df
 
 
-#################
-# Streamlit app #
-#################
-
-# Get and cache data
-df_sites = load_competition_sites()
-df_events = load_events()
-
-st.title("JOP2024 et offre culturelle")
-st.write(f"*Date et heure actuelle : {datetime.now().strftime('%d/%m/%Y - %H:%m')}*")
-
-# --- Application : sidebar
-
-with st.sidebar:
-    st.subheader("Options")
-
-    hide_sites = st.toggle(
-        label="Masque les sites selon la date",
-        help="Masque les sites où toutes les épreuves prévues se sont déjà déroulées.",
-        value=False,
-    )
-
-    if hide_sites:
-        df_sites = df_sites.loc[df_sites["end_date"].dt.date >= datetime.now().date()]
-
-    games_type = st.radio(
-        "Type de jeux", ["Olympiques", "Paralympiques"], horizontal=True
-    )
-
-    if games_type == "Olympiques":
-        filtered_df = df_sites.loc[df_sites["games_type"] == "olympic"]
-    else:
-        filtered_df = df_sites.loc[df_sites["games_type"] == "paralympic"]
-
-    events_distance = st.slider(
-        label="Distance (km) des événements", max_value=20, value=2
-    )
-
-# with st.expander("DataFrame"):
-#     st.dataframe(filtered_df)
-
-# ---------- Application : main page
-
-# Initialize sports list
-sports_list = filtered_df["sports"].str.split(",", expand=True)
-for col in sports_list.columns:
-    sports_list[col] = sports_list[col].str.strip()
-sports_list = sorted(set(sports_list.stack().values))
-
-# Initialize selected sport
-selected_sport = st.selectbox("Sélectionner un sport", options=sports_list)
-
-# Get all available sites information for the selected sport
-available_sites = filtered_df.loc[
-    filtered_df["sports"].str.contains(selected_sport, regex=False)
-].to_dict(orient="records")
-
-# with st.expander("Results"):
-#     st.write(available_sites)
-
-site_selection_radio_label = (
-    f"*{len(available_sites)} site(s) de compétition trouvé(s)* :"
-)
+# Sports list
+@st.cache_data
+def generate_sports_list(df: pd.DataFrame) -> list:
+    sports_list = df["sports"].str.split(",", expand=True)
+    for col in sports_list.columns:
+        sports_list[col] = sports_list[col].str.strip()
+    sports_list = sorted(set(sports_list.stack().values))
+    return sports_list
 
 
-def format_available_sites_information() -> list:
-    if not available_sites:
-        return []
+# Sites selection radio
+@st.cache_data
+def configure_sites_selection_radio_button(sites: dict) -> tuple[str, list]:
+    if not sites:
+        return ()
+
+    label = f"*{len(sites)} site(s) de compétition trouvé(s)* :"
 
     captions = []
-    for site in available_sites:
+    for site in sites:
         captions.append(
             f"**Sport(s) :** {site['sports']}\n\n"
             f"**Dates :** du {site['start_date'].strftime('%d/%m/%Y')} "
             f"au {site['end_date'].strftime('%d/%m/%Y')}"
         )
-    return captions
+    return (label, captions)
 
 
-selected_site = st.radio(
-    label=site_selection_radio_label,
+# Filtered events
+@st.cache_data
+def get_events_from_site_distance(
+    df: pd.DataFrame, site_location: list, events_distance: float
+) -> dict:
+    df["distance_km"] = df.apply(
+        lambda x: distance.distance([x["latitude"], x["longitude"]], site_location).km,
+        axis="columns",
+    )
+    df = df.sort_values(by=["distance_km"])
+    df = df.loc[df["distance_km"] <= events_distance].to_dict(orient="records")
+    return df
+
+
+# ---------- Initialize Session State values
+if "sports_list" not in st.session_state:
+    st.session_state["sports_list"] = []
+
+
+# ---------- Get and cache data
+df_sites = load_competition_sites()
+df_events = load_events()
+
+
+#################
+# Streamlit app #
+#################
+
+st.title("JOP2024 et offre culturelle")
+st.write(f"*Date et heure actuelle : {datetime.now().strftime('%d/%m/%Y - %H:%m')}*")
+
+# ---------- Application : sidebar
+
+with st.sidebar:
+    st.subheader("Options")
+
+    st.toggle(
+        label="Masquer les sites selon la date",
+        value=False,
+        key="hide_sites_by_date",
+        help="Masque les sites pour lesquels toutes les épreuves prévues se sont déjà déroulées.",
+    )
+
+    if st.session_state["hide_sites_by_date"]:
+        df_sites = df_sites.loc[df_sites["end_date"].dt.date >= datetime.now().date()]
+
+    st.radio(
+        label="Type de jeux",
+        options=["olympic", "paralympic"],
+        format_func=lambda x: "Olympiques" if x == "olympic" else "Paralympiques",
+        key="games_type",
+        horizontal=True,
+    )
+
+    st.slider(
+        label="Distance des événements (km)",
+        max_value=20,
+        value=5,
+        key="events_distance",
+    )
+
+    df_sites_filtered = df_sites.loc[
+        df_sites["games_type"] == st.session_state["games_type"]
+    ]
+
+
+# ---------- Application : main page
+
+# Get sports list depending on chosen type of games
+st.session_state["sports_list"] = generate_sports_list(df_sites_filtered)
+
+st.selectbox(
+    label="Sélectionner un sport",
+    options=st.session_state["sports_list"],
+    key="selected_sport",
+)
+
+# Get all available sites information for the selected sport
+available_sites = df_sites_filtered.loc[
+    df_sites_filtered["sports"].str.contains(
+        st.session_state["selected_sport"], regex=False
+    )
+].to_dict(orient="records")
+
+st.radio(
+    label=configure_sites_selection_radio_button(available_sites)[0],
     options=available_sites,
     format_func=lambda x: x["nom_site"],
-    captions=format_available_sites_information(),
+    key="selected_site",
+    captions=configure_sites_selection_radio_button(available_sites)[1],
 )
 
 
-# Compute distance between selected site and events and select events according to the 
-# selected distance in sidebar options.
-events = df_events.copy()
-events["distance_km"] = events.apply(
-    lambda x: distance.distance(
-        [x["latitude"], x["longitude"]], [selected_site["lat"], selected_site["lon"]]
-    ).km,
-    axis="columns",
+# Get events information
+events = get_events_from_site_distance(
+    df_events,
+    [
+        st.session_state["selected_site"]["lat"],
+        st.session_state["selected_site"]["lon"],
+    ],
+    st.session_state["events_distance"],
 )
-events = events.sort_values(by=["distance_km"])
-events = events.loc[events["distance_km"] <= events_distance].to_dict(orient="records")
-
-
-# st.write(events)
 
 # Initialize Folium map
-m = create_folium_map(location=[selected_site["lat"], selected_site["lon"]])
+m = create_folium_map(
+    location=[
+        st.session_state["selected_site"]["lat"],
+        st.session_state["selected_site"]["lon"],
+    ]
+)
+
+marker_cluster = MarkerCluster().add_to(m)
 
 # Add a marker on the Folium map for the selected site
-marker = add_selected_site_marker(site=selected_site)
+marker = add_selected_site_marker(site=st.session_state["selected_site"])
 marker.add_to(m)
 
 # Add markers on the Folium map for the nearest events
 for event in events:
     marker = add_event_marker(event=event)
-    marker.add_to(m)
+    marker.add_to(marker_cluster)
 
-# Fit Folium map bounds to nearest events coordinates
-m.fit_bounds([[event["latitude"], event["longitude"]] for event in events])
+# Fit Folium map bounds to selected site and events coordinates
+bounds = [[event["latitude"], event["longitude"]] for event in events]
+bounds.append([st.session_state["selected_site"]["lat"], st.session_state["selected_site"]["lon"]])
+m.fit_bounds(bounds=bounds, padding=(20, 20))
 
 # Render Folium map
 st_data = st_folium(m, use_container_width=True)
+
+with st.expander("Events"):
+    st.write(events)
 
 with st.expander("Session State"):
     st.write(st.session_state)
