@@ -1,7 +1,3 @@
-import pandas as pd
-import streamlit as st
-
-
 def format_event_display_details(event: tuple) -> str:
     
     md_text = (
