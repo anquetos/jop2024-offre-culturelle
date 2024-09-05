@@ -1,0 +1,7 @@
+folium==0.17.0
+geographiclib==2.0
+geopy==2.4.1
+numpy==2.0.1
+pandas==2.2.2
+streamlit==1.37.0
+streamlit_folium==0.22.0
