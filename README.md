@@ -1,3 +1,5 @@
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://jop2024-explorer.streamlit.app)
+
 > Ce projet est réalisé dans le cadre du **challenge open data JOP2024** proposé par l'équipe de [data.gouv.fr](http://data.gouv.fr/).
 
 # JOP2024 et offre culturelle
